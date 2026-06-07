@@ -8,9 +8,16 @@
   .galacc summary .chev{margin-left:auto;color:var(--accent);font-size:15px;transition:transform .2s ease;}
   .galacc details[open] summary .chev{transform:rotate(180deg);}
   .galacc .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 14px 16px;}
-  .galacc .gal a{display:block;}
+  .galacc .gal a{display:block;cursor:zoom-in;}
   .galacc .gal img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block;
-                   background:var(--band);border:1px solid var(--line);}
+                   background:var(--band);border:1px solid var(--line);transition:filter .15s ease;}
+  .galacc .gal a:hover img{filter:brightness(.93);}
+  .galacc .lb{position:fixed;inset:0;background:rgba(20,18,12,.92);display:flex;align-items:center;
+              justify-content:center;z-index:1000;padding:18px;cursor:zoom-out;}
+  .galacc .lb[hidden]{display:none;}
+  .galacc .lb img{max-width:100%;max-height:100%;border-radius:6px;}
+  .galacc .lb-x{position:absolute;top:14px;right:18px;color:#fff;font-family:Arial,sans-serif;
+                font-size:30px;line-height:1;background:none;border:none;cursor:pointer;}
   @media(max-width:560px){.galacc .gal{grid-template-columns:1fr 1fr;}}
   @media(max-width:380px){.galacc .gal{grid-template-columns:1fr;}}
 </style>
@@ -39,4 +46,22 @@
       <a href="bilder/bad3.jpg"><img src="bilder/bad3.jpg" alt="Bad &ndash; Bild 3" loading="lazy"></a>
     </div>
   </details>
+
+  <div class="lb" hidden>
+    <button class="lb-x" aria-label="Schließen">&times;</button>
+    <img alt="">
+  </div>
 </div>
+<script>
+(function(){
+  var acc = document.currentScript.previousElementSibling;
+  var lb = acc.querySelector('.lb'), lbImg = lb.querySelector('img');
+  function open(href, alt){ lbImg.src = href; lbImg.alt = alt || ''; lb.hidden = false; document.body.style.overflow = 'hidden'; }
+  function close(){ lb.hidden = true; lbImg.removeAttribute('src'); document.body.style.overflow = ''; }
+  acc.querySelectorAll('.gal a').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); open(a.getAttribute('href'), a.querySelector('img').alt); });
+  });
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !lb.hidden) close(); });
+})();
+</script>
