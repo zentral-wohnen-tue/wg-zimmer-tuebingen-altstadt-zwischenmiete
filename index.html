@@ -46,6 +46,12 @@
   }
 }
 </script>
+<script>
+fetch("https://zwohnen-a1-a6cda.zentral-wohnen-tue.workers.dev/hit/galerie")
+  .then(r => r.json())
+  .then(d => { document.getElementById("aufrufe").textContent = d.count; })
+  .catch(() => {});   // Blocker/offline? Seite bleibt heil, zeigt nur nichts
+</script>
 <style>
   :root{--ink:#1a1a1a;--muted:#5a5a5a;--line:#d8d4c8;--accent:#1d6e56;--band:#f3f1ea;--paper:#fff;}
   *{box-sizing:border-box;margin:0;padding:0;}
