@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://zentral-wohnen-tue.github.io/wg-zimmer-tuebingen-altstadt-zwischenmiete/sitemap.xml
